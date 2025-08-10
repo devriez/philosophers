@@ -6,7 +6,7 @@
 /*   By: amoiseik <amoiseik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/08 16:07:33 by amoiseik          #+#    #+#             */
-/*   Updated: 2025/08/09 15:57:41 by amoiseik         ###   ########.fr       */
+/*   Updated: 2025/08/10 16:24:10 by amoiseik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,12 @@ typedef struct s_prog
 	int				num_to_eat;
 
 	long			start_time;
-	int				is_dead;
+	int				is_dead_or_full;
 
-	t_philo			*philosophs;
+	t_philo			*philos;
 
 	pthread_mutex_t	*forks;
-	pthread_mutex_t	death_mutex;
+	pthread_mutex_t	dead_or_full_mutex;
 	pthread_mutex_t	print_mutex;
 }	t_prog;
 
@@ -53,8 +53,15 @@ typedef struct s_philo
 	pthread_t		thread;
 }	t_philo;
 
+//utils
 long	get_current_time(void);
 int		ft_atoi(char *str);
 void	print_status(t_philo *philo, char *message);
+//routine
+void	*routine(void	*arg);
+//free_and_error
+void	my_error_exit(t_prog *prog, char *message);
+//init
+void	init_struct(t_prog *prog, char **argv);
 
 #endif
