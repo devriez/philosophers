@@ -36,4 +36,4 @@ re: fclean all
 test1: 
 		./philo 5 800 200 200
 test2: 
-		./philo 5 800 200 200 7
+		./philo 5 800 200 200 2

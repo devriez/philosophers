@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: devriez <devriez@student.42.fr>            +#+  +:+       +#+        */
+/*   By: amoiseik <amoiseik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 15:14:11 by amoiseik          #+#    #+#             */
-/*   Updated: 2025/08/11 20:04:42 by devriez          ###   ########.fr       */
+/*   Updated: 2025/08/12 12:51:39 by amoiseik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	*routine(void	*arg)
 		if (check_is_dead_or_full(philo))
 		{
 			put_forks(philo);
-			return NULL;
+			return (NULL);
 		}
 		else
 		{

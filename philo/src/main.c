@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: devriez <devriez@student.42.fr>            +#+  +:+       +#+        */
+/*   By: amoiseik <amoiseik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:11:33 by amoiseik          #+#    #+#             */
-/*   Updated: 2025/08/11 20:44:50 by devriez          ###   ########.fr       */
+/*   Updated: 2025/08/12 13:16:58 by amoiseik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@ void	simulation(t_prog *prog)
 	i = 0;
 	while (i < prog->num_of_philo)
 	{
-		pthread_create(&prog->philos[i].thread, NULL, routine, &prog->philos[i]);
+		pthread_create(&prog->philos[i].thread, NULL, \
+						routine, \
+						&prog->philos[i]);
 		i ++;
 	}
 }

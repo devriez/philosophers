@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   observer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: devriez <devriez@student.42.fr>            +#+  +:+       +#+        */
+/*   By: amoiseik <amoiseik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:11:33 by amoiseik          #+#    #+#             */
-/*   Updated: 2025/08/11 15:59:26 by amoiseik          ###   ########.fr       */
+/*   Updated: 2025/08/12 14:16:11 by amoiseik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ int	is_full(t_philo *philo)
 	res = 0;
 	prog = philo->prog;
 	pthread_mutex_lock(&philo->times_eated_mutex);
-	if (prog->num_to_eat_each != -1 && philo->times_eated >= prog->num_to_eat_each)
+	if (prog->num_to_eat_each != -1 && \
+			philo->times_eated >= prog->num_to_eat_each)
 		res = 1;
 	pthread_mutex_unlock(&philo->times_eated_mutex);
 	return (res);
@@ -52,17 +53,28 @@ void	set_end_flag(t_philo *philo)
 	pthread_mutex_unlock(&prog->dead_or_full_mutex);
 }
 
-void	print_last_status(t_philo *philo, char *status)
+void	print_last_status(t_philo *philo, int status)
 {
-	t_prog *prog;
+	t_prog	*prog;
 
 	prog = philo->prog;
-	pthread_mutex_lock(&prog->print_mutex);
-	printf("%ld %d %s", \
-		(get_current_time() - prog->start_time), \
-		philo->id, \
-		status);
-	pthread_mutex_unlock(&prog->print_mutex);
+	if (status == STATUS_EVERYBODY_FULL)
+	{
+		pthread_mutex_lock(&prog->print_mutex);
+		printf("%ld %s", \
+			(get_current_time() - prog->start_time), \
+			STATUS_EVERYBODY_FULL_TEXT);
+		pthread_mutex_unlock(&prog->print_mutex);
+	}
+	else if (status == STATUS_DEAD)
+	{
+		pthread_mutex_lock(&prog->print_mutex);
+		printf("%ld %i %s", \
+			(get_current_time() - prog->start_time), \
+			philo->id, \
+			STATUS_DEAD_TEXT);
+		pthread_mutex_unlock(&prog->print_mutex);
+	}
 }
 
 void	*observer_routine(void *param)
@@ -84,10 +96,10 @@ void	*observer_routine(void *param)
 				full_count ++;
 			if (is_dead(philo))
 				return (set_end_flag(philo), \
-						print_last_status(philo, "died\n"), NULL);
+						print_last_status(philo, STATUS_DEAD), NULL);
 			if (full_count == prog->num_of_philo)
 				return (set_end_flag(philo), \
-						print_last_status(philo, "Everybody ate enough times"), \
+						print_last_status(philo, STATUS_EVERYBODY_FULL), \
 						NULL);
 		}
 		usleep(100);

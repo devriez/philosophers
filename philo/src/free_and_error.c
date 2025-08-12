@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_and_error.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: devriez <devriez@student.42.fr>            +#+  +:+       +#+        */
+/*   By: amoiseik <amoiseik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 15:07:17 by amoiseik          #+#    #+#             */
-/*   Updated: 2025/08/11 19:34:32 by devriez          ###   ########.fr       */
+/*   Updated: 2025/08/12 13:02:33 by amoiseik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ void	destroy_mutexs(t_prog *prog)
 	while (i < prog->num_of_philo)
 	{
 		pthread_mutex_destroy(&prog->forks[i]);
+		pthread_mutex_destroy(&prog->philos[i].last_time_eat_mutex);
+		pthread_mutex_destroy(&prog->philos[i].times_eated_mutex);
 		i ++;
 	}
 	pthread_mutex_destroy(&prog->dead_or_full_mutex);

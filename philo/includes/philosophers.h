@@ -3,17 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: devriez <devriez@student.42.fr>            +#+  +:+       +#+        */
+/*   By: amoiseik <amoiseik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/08 16:07:33 by amoiseik          #+#    #+#             */
-/*   Updated: 2025/08/11 20:19:53 by devriez          ###   ########.fr       */
+/*   Updated: 2025/08/12 14:11:34 by amoiseik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILOSOPHERS_H
 # define PHILOSOPHERS_H
 
-# define SLEEP_TIME	100
+# define SLEEP_TIME			   		100
+
+# define STATUS_DEAD		   		0
+# define STATUS_EVERYBODY_FULL 		1
+# define STATUS_DEAD_TEXT			"died\n"
+# define STATUS_EVERYBODY_FULL_TEXT "All philosophers ate enough times\n"
 
 # include <stdio.h>     // printf
 # include <stdlib.h>    // malloc, free
@@ -21,7 +26,7 @@
 # include <sys/time.h>  // gettimeofday()
 # include <pthread.h>   // pthread functions
 
-typedef struct s_prog t_prog;
+typedef struct s_prog	t_prog;
 
 typedef struct s_philo
 {
@@ -35,7 +40,7 @@ typedef struct s_philo
 	pthread_mutex_t	*right_fork;
 	pthread_mutex_t	last_time_eat_mutex;
 	pthread_mutex_t	times_eated_mutex;
-	
+
 	pthread_t		thread;
 }	t_philo;
 

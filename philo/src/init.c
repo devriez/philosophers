@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: devriez <devriez@student.42.fr>            +#+  +:+       +#+        */
+/*   By: amoiseik <amoiseik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:12:13 by amoiseik          #+#    #+#             */
-/*   Updated: 2025/08/11 20:19:53 by devriez          ###   ########.fr       */
+/*   Updated: 2025/08/12 12:53:06 by amoiseik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	init_struct(t_prog *prog, int argc, char **argv)
 	prog->philos = malloc(sizeof(t_philo) * (prog->num_of_philo));
 	prog->forks = malloc(sizeof(pthread_mutex_t) * (prog->num_of_philo));
 	if (!prog->philos || !prog->forks)
-		error_free_exit(prog, "Error memory allocation for philosophs or forks\n");
+		error_free_exit(prog, "Error memory alloc for philosophs or forks\n");
 	i = 0;
 	while (i < prog->num_of_philo)
 	{
@@ -62,4 +62,3 @@ void	init_struct(t_prog *prog, int argc, char **argv)
 	pthread_mutex_init(&(prog->print_mutex), NULL);
 	init_philos(prog, prog->philos);
 }
-
