@@ -6,7 +6,7 @@
 /*   By: amoiseik <amoiseik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:12:13 by amoiseik          #+#    #+#             */
-/*   Updated: 2025/08/12 14:29:35 by amoiseik         ###   ########.fr       */
+/*   Updated: 2025/08/12 18:28:54 by amoiseik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ static void	init_philos(t_prog *prog, t_philo *philo)
 	while (i < prog->num_of_philo)
 	{
 		philo[i].id = i + 1;
-		philo[i].last_time_eat = prog->start_time;
 		if (prog->num_to_eat_each != -1)
 			philo[i].times_eated = 0;
 		else
@@ -47,7 +46,7 @@ void	init_struct(t_prog *prog, int argc, char **argv)
 	else
 		prog->num_to_eat_each = -1;
 	prog->start_time = get_current_time();
-	prog->is_dead_or_full = 0;
+	prog->end_flag = 0;
 	prog->philos = malloc(sizeof(t_philo) * (prog->num_of_philo));
 	prog->forks = malloc(sizeof(pthread_mutex_t) * (prog->num_of_philo));
 	if (!prog->philos || !prog->forks)
@@ -58,7 +57,7 @@ void	init_struct(t_prog *prog, int argc, char **argv)
 		pthread_mutex_init(&(prog->forks[i]), NULL);
 		i ++;
 	}
-	pthread_mutex_init(&(prog->dead_or_full_mutex), NULL);
+	pthread_mutex_init(&(prog->end_mutex), NULL);
 	pthread_mutex_init(&(prog->print_mutex), NULL);
 	init_philos(prog, prog->philos);
 }

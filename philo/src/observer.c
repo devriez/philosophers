@@ -6,13 +6,13 @@
 /*   By: amoiseik <amoiseik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:11:33 by amoiseik          #+#    #+#             */
-/*   Updated: 2025/08/12 15:00:33 by amoiseik         ###   ########.fr       */
+/*   Updated: 2025/08/12 17:16:40 by amoiseik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-static int	is_full(t_philo *philo)
+static int	is_philo_full(t_philo *philo)
 {
 	t_prog	*prog;
 	int		res;
@@ -27,7 +27,7 @@ static int	is_full(t_philo *philo)
 	return (res);
 }
 
-static int	is_dead(t_philo *philo)
+static int	is_philo_dead(t_philo *philo)
 {
 	int		time_no_eat;
 	int		res;
@@ -48,9 +48,9 @@ static void	set_end_flag(t_philo *philo)
 	t_prog	*prog;
 
 	prog = philo->prog;
-	pthread_mutex_lock(&prog->dead_or_full_mutex);
-	prog->is_dead_or_full = 1;
-	pthread_mutex_unlock(&prog->dead_or_full_mutex);
+	pthread_mutex_lock(&prog->end_mutex);
+	prog->end_flag = 1;
+	pthread_mutex_unlock(&prog->end_mutex);
 }
 
 static void	print_last_status(t_philo *philo, int status)
@@ -92,9 +92,9 @@ void	*observer_routine(void *param)
 		while (i < prog->num_of_philo)
 		{
 			philo = &prog->philos[i++];
-			if (is_full(philo))
+			if (is_philo_full(philo))
 				full_count ++;
-			if (is_dead(philo))
+			if (is_philo_dead(philo))
 				return (set_end_flag(philo), \
 						print_last_status(philo, STATUS_DEAD), NULL);
 			if (full_count == prog->num_of_philo)
@@ -102,6 +102,6 @@ void	*observer_routine(void *param)
 						print_last_status(philo, STATUS_EVERYBODY_FULL), \
 						NULL);
 		}
-		usleep(WAIT_TIME);
+		usleep(1000);
 	}
 }

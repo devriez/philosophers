@@ -6,7 +6,7 @@
 /*   By: amoiseik <amoiseik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:11:33 by amoiseik          #+#    #+#             */
-/*   Updated: 2025/08/12 14:28:48 by amoiseik         ###   ########.fr       */
+/*   Updated: 2025/08/12 18:28:37 by amoiseik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ static void	simulation(t_prog *prog)
 {
 	int	i;
 
-	pthread_create(&prog->observe, NULL, observer_routine, prog);
 	i = 0;
 	while (i < prog->num_of_philo)
 	{
@@ -25,6 +24,7 @@ static void	simulation(t_prog *prog)
 						&prog->philos[i]);
 		i ++;
 	}
+	pthread_create(&prog->observe, NULL, observer_routine, prog);
 }
 
 static void	wait_end_of_threads(t_prog *prog)

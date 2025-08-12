@@ -6,7 +6,7 @@
 /*   By: amoiseik <amoiseik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 15:14:11 by amoiseik          #+#    #+#             */
-/*   Updated: 2025/08/12 15:01:02 by amoiseik         ###   ########.fr       */
+/*   Updated: 2025/08/12 19:05:36 by amoiseik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,37 +32,13 @@ static void	take_forks(t_philo *philo)
 
 static void	put_forks(t_philo *philo)
 {
-	if (philo->id % 2 == 0)
-	{
-		pthread_mutex_unlock(philo->left_fork);
-		pthread_mutex_unlock(philo->right_fork);
-	}
-	else
-	{
-		pthread_mutex_unlock(philo->right_fork);
-		pthread_mutex_unlock(philo->left_fork);
-	}
-}
-
-static int	check_is_dead_or_full(t_philo *philo)
-{
-	int		res;
-	t_prog	*prog;
-
-	prog = philo->prog;
-	res = 0;
-	pthread_mutex_lock(&prog->dead_or_full_mutex);
-	if (prog->is_dead_or_full)
-		res = 1;
-	pthread_mutex_unlock(&prog->dead_or_full_mutex);
-	return (res);
+	pthread_mutex_unlock(philo->left_fork);
+	pthread_mutex_unlock(philo->right_fork);
 }
 
 static void	eating(t_philo	*philo)
 {
-	pthread_mutex_lock(&philo->last_time_eat_mutex);
-	philo->last_time_eat = get_current_time();
-	pthread_mutex_unlock(&philo->last_time_eat_mutex);
+	set_last_time_eat(philo);
 	print_status(philo, "is eating\n");
 	usleep(philo->prog->time_to_eat * 1000);
 	if (philo->times_eated != -1)
@@ -73,16 +49,26 @@ static void	eating(t_philo	*philo)
 	}
 }
 
+void	routine_alone(t_philo	*philo)
+{
+	pthread_mutex_lock(philo->left_fork);
+	print_status(philo, "has taken a fork\n");
+	usleep(philo->prog->time_to_die * 1000);
+	pthread_mutex_unlock(philo->left_fork);
+}
+
 void	*routine(void	*arg)
 {
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
-	usleep(WAIT_TIME);
+	set_last_time_eat(philo);
+	if (philo->prog->num_of_philo == 1)
+		return (routine_alone(philo), NULL);
 	while (1)
 	{
 		take_forks(philo);
-		if (check_is_dead_or_full(philo))
+		if (is_end(philo->prog))
 		{
 			put_forks(philo);
 			return (NULL);
@@ -92,8 +78,7 @@ void	*routine(void	*arg)
 			eating(philo);
 			put_forks(philo);
 		}
-		print_status(philo, "is sleeping\n");
-		usleep(philo->prog->time_to_sleep * 1000);
-		print_status(philo, "is thinking\n");
+		sleeping(philo);
+		thinking(philo);
 	}
 }

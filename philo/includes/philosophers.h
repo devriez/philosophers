@@ -6,14 +6,14 @@
 /*   By: amoiseik <amoiseik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/08 16:07:33 by amoiseik          #+#    #+#             */
-/*   Updated: 2025/08/12 14:59:38 by amoiseik         ###   ########.fr       */
+/*   Updated: 2025/08/12 19:06:26 by amoiseik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILOSOPHERS_H
 # define PHILOSOPHERS_H
 
-# define WAIT_TIME			   		100
+# define WAIT_TIME			   		200
 
 # define STATUS_DEAD		   		0
 # define STATUS_EVERYBODY_FULL 		1
@@ -31,7 +31,6 @@ typedef struct s_prog	t_prog;
 typedef struct s_philo
 {
 	int				id;
-	long			last_time_eat;
 	int				times_eated;
 
 	t_prog			*prog;
@@ -42,6 +41,7 @@ typedef struct s_philo
 	pthread_mutex_t	times_eated_mutex;
 
 	pthread_t		thread;
+	long			last_time_eat;
 }	t_philo;
 
 typedef struct s_prog
@@ -53,14 +53,14 @@ typedef struct s_prog
 	int				num_to_eat_each;
 
 	long			start_time;
-	int				is_dead_or_full;
+	int				end_flag;
 
 	pthread_t		observe;
 
 	t_philo			*philos;
 
 	pthread_mutex_t	*forks;
-	pthread_mutex_t	dead_or_full_mutex;
+	pthread_mutex_t	end_mutex;
 	pthread_mutex_t	print_mutex;
 }	t_prog;
 
@@ -72,6 +72,11 @@ void	print_status(t_philo *philo, char *message);
 void	*observer_routine(void *param);
 //routine
 void	*routine(void	*arg);
+//routine_utils
+int		is_end(t_prog *prog);
+void	set_last_time_eat(t_philo *philo);
+void	sleeping(t_philo	*philo);
+void	thinking(t_philo	*philo);
 //free_and_error
 void	free_all(t_prog *prog);
 void	error_exit(char *message);

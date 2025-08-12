@@ -6,7 +6,7 @@
 /*   By: amoiseik <amoiseik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 12:59:11 by amoiseik          #+#    #+#             */
-/*   Updated: 2025/08/12 14:56:09 by amoiseik         ###   ########.fr       */
+/*   Updated: 2025/08/12 16:08:21 by amoiseik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,8 @@ int	ft_atoi(char *str)
 
 void	print_status(t_philo *philo, char *message)
 {
-	pthread_mutex_lock(&philo->prog->dead_or_full_mutex);
-	if (philo->prog->is_dead_or_full != 1)
+	pthread_mutex_lock(&philo->prog->end_mutex);
+	if (philo->prog->end_flag != 1)
 	{
 		pthread_mutex_lock(&philo->prog->print_mutex);
 		printf("%ld %d %s", \
@@ -72,5 +72,5 @@ void	print_status(t_philo *philo, char *message)
 			message);
 		pthread_mutex_unlock(&philo->prog->print_mutex);
 	}
-	pthread_mutex_unlock(&philo->prog->dead_or_full_mutex);
+	pthread_mutex_unlock(&philo->prog->end_mutex);
 }

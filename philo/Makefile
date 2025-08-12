@@ -11,6 +11,7 @@ SRCS = $(SRC_DIR)main.c \
 		$(SRC_DIR)init.c \
 		$(SRC_DIR)observer.c \
 		$(SRC_DIR)routine.c \
+		$(SRC_DIR)routine_utils.c \
 		$(SRC_DIR)utils.c \
 
 OBJS = $(SRCS:.c=.o)

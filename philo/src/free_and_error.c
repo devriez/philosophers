@@ -6,7 +6,7 @@
 /*   By: amoiseik <amoiseik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 15:07:17 by amoiseik          #+#    #+#             */
-/*   Updated: 2025/08/12 14:27:29 by amoiseik         ###   ########.fr       */
+/*   Updated: 2025/08/12 16:08:21 by amoiseik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,6 @@ void	destroy_mutexs(t_prog *prog)
 		pthread_mutex_destroy(&prog->philos[i].times_eated_mutex);
 		i ++;
 	}
-	pthread_mutex_destroy(&prog->dead_or_full_mutex);
+	pthread_mutex_destroy(&prog->end_mutex);
 	pthread_mutex_destroy(&prog->print_mutex);
 }
