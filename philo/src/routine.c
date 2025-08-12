@@ -6,13 +6,13 @@
 /*   By: amoiseik <amoiseik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 15:14:11 by amoiseik          #+#    #+#             */
-/*   Updated: 2025/08/12 12:51:39 by amoiseik         ###   ########.fr       */
+/*   Updated: 2025/08/12 15:01:02 by amoiseik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	take_forks(t_philo *philo)
+static void	take_forks(t_philo *philo)
 {
 	if (philo->id % 2 == 0)
 	{
@@ -30,7 +30,7 @@ void	take_forks(t_philo *philo)
 	}
 }
 
-void	put_forks(t_philo *philo)
+static void	put_forks(t_philo *philo)
 {
 	if (philo->id % 2 == 0)
 	{
@@ -44,7 +44,7 @@ void	put_forks(t_philo *philo)
 	}
 }
 
-int	check_is_dead_or_full(t_philo *philo)
+static int	check_is_dead_or_full(t_philo *philo)
 {
 	int		res;
 	t_prog	*prog;
@@ -58,7 +58,7 @@ int	check_is_dead_or_full(t_philo *philo)
 	return (res);
 }
 
-void	eating(t_philo	*philo)
+static void	eating(t_philo	*philo)
 {
 	pthread_mutex_lock(&philo->last_time_eat_mutex);
 	philo->last_time_eat = get_current_time();
@@ -78,7 +78,7 @@ void	*routine(void	*arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
-	usleep(SLEEP_TIME);
+	usleep(WAIT_TIME);
 	while (1)
 	{
 		take_forks(philo);

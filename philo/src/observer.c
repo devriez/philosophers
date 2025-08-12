@@ -6,13 +6,13 @@
 /*   By: amoiseik <amoiseik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:11:33 by amoiseik          #+#    #+#             */
-/*   Updated: 2025/08/12 14:16:11 by amoiseik         ###   ########.fr       */
+/*   Updated: 2025/08/12 15:00:33 by amoiseik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-int	is_full(t_philo *philo)
+static int	is_full(t_philo *philo)
 {
 	t_prog	*prog;
 	int		res;
@@ -27,7 +27,7 @@ int	is_full(t_philo *philo)
 	return (res);
 }
 
-int	is_dead(t_philo *philo)
+static int	is_dead(t_philo *philo)
 {
 	int		time_no_eat;
 	int		res;
@@ -43,7 +43,7 @@ int	is_dead(t_philo *philo)
 	return (res);
 }
 
-void	set_end_flag(t_philo *philo)
+static void	set_end_flag(t_philo *philo)
 {
 	t_prog	*prog;
 
@@ -53,7 +53,7 @@ void	set_end_flag(t_philo *philo)
 	pthread_mutex_unlock(&prog->dead_or_full_mutex);
 }
 
-void	print_last_status(t_philo *philo, int status)
+static void	print_last_status(t_philo *philo, int status)
 {
 	t_prog	*prog;
 
@@ -102,6 +102,6 @@ void	*observer_routine(void *param)
 						print_last_status(philo, STATUS_EVERYBODY_FULL), \
 						NULL);
 		}
-		usleep(100);
+		usleep(WAIT_TIME);
 	}
 }

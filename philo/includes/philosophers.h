@@ -6,14 +6,14 @@
 /*   By: amoiseik <amoiseik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/08 16:07:33 by amoiseik          #+#    #+#             */
-/*   Updated: 2025/08/12 14:11:34 by amoiseik         ###   ########.fr       */
+/*   Updated: 2025/08/12 14:59:38 by amoiseik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILOSOPHERS_H
 # define PHILOSOPHERS_H
 
-# define SLEEP_TIME			   		100
+# define WAIT_TIME			   		100
 
 # define STATUS_DEAD		   		0
 # define STATUS_EVERYBODY_FULL 		1

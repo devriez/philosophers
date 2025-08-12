@@ -6,13 +6,13 @@
 /*   By: amoiseik <amoiseik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:11:33 by amoiseik          #+#    #+#             */
-/*   Updated: 2025/08/12 13:16:58 by amoiseik         ###   ########.fr       */
+/*   Updated: 2025/08/12 14:28:48 by amoiseik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	simulation(t_prog *prog)
+static void	simulation(t_prog *prog)
 {
 	int	i;
 
@@ -27,7 +27,7 @@ void	simulation(t_prog *prog)
 	}
 }
 
-void	wait_end_of_threads(t_prog *prog)
+static void	wait_end_of_threads(t_prog *prog)
 {
 	int	i;
 

@@ -6,13 +6,13 @@
 /*   By: amoiseik <amoiseik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:12:13 by amoiseik          #+#    #+#             */
-/*   Updated: 2025/08/12 12:53:06 by amoiseik         ###   ########.fr       */
+/*   Updated: 2025/08/12 14:29:35 by amoiseik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	init_philos(t_prog *prog, t_philo *philo)
+static void	init_philos(t_prog *prog, t_philo *philo)
 {
 	int	i;
 

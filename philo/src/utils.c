@@ -6,7 +6,7 @@
 /*   By: amoiseik <amoiseik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 12:59:11 by amoiseik          #+#    #+#             */
-/*   Updated: 2025/08/10 16:02:54 by amoiseik         ###   ########.fr       */
+/*   Updated: 2025/08/12 14:56:09 by amoiseik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ long	get_current_time(void)
 	return (tval.tv_sec * 1000 + tval.tv_usec / 1000);
 }
 
-int	is_space(char c)
+static int	is_space(char c)
 {
 	if ((c >= 9 && c <= 13) || c == 32)
 		return (1);
@@ -28,7 +28,7 @@ int	is_space(char c)
 		return (0);
 }
 
-int	is_num(char c)
+static int	is_num(char c)
 {
 	if (c >= '0' && c <= '9')
 		return (1);

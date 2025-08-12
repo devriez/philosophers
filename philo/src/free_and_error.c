@@ -6,13 +6,13 @@
 /*   By: amoiseik <amoiseik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 15:07:17 by amoiseik          #+#    #+#             */
-/*   Updated: 2025/08/12 13:02:33 by amoiseik         ###   ########.fr       */
+/*   Updated: 2025/08/12 14:27:29 by amoiseik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-int	ft_len(char *str)
+static int	ft_len(char *str)
 {
 	int	i;
 
