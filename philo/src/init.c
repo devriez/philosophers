@@ -6,7 +6,7 @@
 /*   By: amoiseik <amoiseik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:12:13 by amoiseik          #+#    #+#             */
-/*   Updated: 2025/08/12 18:28:54 by amoiseik         ###   ########.fr       */
+/*   Updated: 2025/08/14 18:08:57 by amoiseik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ static void	init_philos(t_prog *prog, t_philo *philo)
 			philo[i].times_eated = 0;
 		else
 			philo[i].times_eated = -1;
+		philo[i].last_time_eat = prog->start_time;
 		philo[i].prog = prog;
 		philo[i].left_fork = &prog->forks[i];
 		philo[i].right_fork = &prog->forks[(i + 1) % prog->num_of_philo];

@@ -6,7 +6,7 @@
 /*   By: amoiseik <amoiseik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/08 16:07:33 by amoiseik          #+#    #+#             */
-/*   Updated: 2025/08/12 19:06:26 by amoiseik         ###   ########.fr       */
+/*   Updated: 2025/08/14 18:26:18 by amoiseik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef struct s_philo
 {
 	int				id;
 	int				times_eated;
+	long			last_time_eat;
 
 	t_prog			*prog;
 
@@ -41,7 +42,6 @@ typedef struct s_philo
 	pthread_mutex_t	times_eated_mutex;
 
 	pthread_t		thread;
-	long			last_time_eat;
 }	t_philo;
 
 typedef struct s_prog
