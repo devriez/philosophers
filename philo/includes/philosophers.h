@@ -6,7 +6,7 @@
 /*   By: amoiseik <amoiseik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/08 16:07:33 by amoiseik          #+#    #+#             */
-/*   Updated: 2025/08/14 18:26:18 by amoiseik         ###   ########.fr       */
+/*   Updated: 2025/08/14 19:13:49 by amoiseik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,9 @@ typedef struct s_prog
 	int				time_to_die;
 	int				time_to_eat;
 	int				time_to_sleep;
-	int				num_to_eat_each;
+
+	int				has_meal_limit;
+	int				meal_limit;
 
 	long			start_time;
 	int				end_flag;

@@ -6,7 +6,7 @@
 /*   By: amoiseik <amoiseik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 15:14:11 by amoiseik          #+#    #+#             */
-/*   Updated: 2025/08/12 19:05:36 by amoiseik         ###   ########.fr       */
+/*   Updated: 2025/08/14 19:43:24 by amoiseik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,9 @@ static void	eating(t_philo	*philo)
 	set_last_time_eat(philo);
 	print_status(philo, "is eating\n");
 	usleep(philo->prog->time_to_eat * 1000);
-	if (philo->times_eated != -1)
-	{
-		pthread_mutex_lock(&philo->times_eated_mutex);
-		philo->times_eated ++;
-		pthread_mutex_unlock(&philo->times_eated_mutex);
-	}
+	pthread_mutex_lock(&philo->times_eated_mutex);
+	philo->times_eated ++;
+	pthread_mutex_unlock(&philo->times_eated_mutex);
 }
 
 void	routine_alone(t_philo	*philo)

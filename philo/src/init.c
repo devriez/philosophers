@@ -6,7 +6,7 @@
 /*   By: amoiseik <amoiseik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:12:13 by amoiseik          #+#    #+#             */
-/*   Updated: 2025/08/14 18:08:57 by amoiseik         ###   ########.fr       */
+/*   Updated: 2025/08/14 19:46:31 by amoiseik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,7 @@ static void	init_philos(t_prog *prog, t_philo *philo)
 	while (i < prog->num_of_philo)
 	{
 		philo[i].id = i + 1;
-		if (prog->num_to_eat_each != -1)
-			philo[i].times_eated = 0;
-		else
-			philo[i].times_eated = -1;
+		philo[i].times_eated = 0;
 		philo[i].last_time_eat = prog->start_time;
 		philo[i].prog = prog;
 		philo[i].left_fork = &prog->forks[i];
@@ -34,18 +31,36 @@ static void	init_philos(t_prog *prog, t_philo *philo)
 	}
 }
 
-void	init_struct(t_prog *prog, int argc, char **argv)
+static void	parse_and_validate_args(t_prog *prog, int argc, char **argv)
 {
-	int	i;
-
 	prog->num_of_philo = ft_atoi(argv[1]);
 	prog->time_to_die = ft_atoi(argv[2]);
 	prog->time_to_eat = ft_atoi(argv[3]);
 	prog->time_to_sleep = ft_atoi(argv[4]);
 	if (argc == 6)
-		prog->num_to_eat_each = ft_atoi(argv[5]);
+	{
+		prog->has_meal_limit = 1;
+		prog->meal_limit = ft_atoi(argv[5]);
+	}
 	else
-		prog->num_to_eat_each = -1;
+		prog->has_meal_limit = 0;
+	if (prog->num_of_philo < 1)
+		error_exit("Invalid number of philos. Must be a positive integer.\n");
+	if (prog->time_to_die < 1)
+		error_exit("Invalid time to die. Must be a positive integer.\n");
+	if (prog->time_to_eat < 1)
+		error_exit("Invalid time to eat. Must be a positive integer.\n");
+	if (prog->time_to_sleep < 1)
+		error_exit("Invalid time to sleep. Must be a positive integer.\n");
+	if ((prog->has_meal_limit == 1) && (prog->meal_limit < 1))
+		error_exit("Invalid meal limit. Must be a positive integer.\n");
+}
+
+void	init_struct(t_prog *prog, int argc, char **argv)
+{
+	int	i;
+
+	parse_and_validate_args(prog, argc, argv);
 	prog->start_time = get_current_time();
 	prog->end_flag = 0;
 	prog->philos = malloc(sizeof(t_philo) * (prog->num_of_philo));

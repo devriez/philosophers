@@ -6,7 +6,7 @@
 /*   By: amoiseik <amoiseik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:11:33 by amoiseik          #+#    #+#             */
-/*   Updated: 2025/08/12 17:16:40 by amoiseik         ###   ########.fr       */
+/*   Updated: 2025/08/14 19:45:23 by amoiseik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,28 +19,33 @@ static int	is_philo_full(t_philo *philo)
 
 	res = 0;
 	prog = philo->prog;
-	pthread_mutex_lock(&philo->times_eated_mutex);
-	if (prog->num_to_eat_each != -1 && \
-			philo->times_eated >= prog->num_to_eat_each)
-		res = 1;
-	pthread_mutex_unlock(&philo->times_eated_mutex);
-	return (res);
+	if (prog->has_meal_limit)
+	{
+		pthread_mutex_lock(&philo->times_eated_mutex);
+		if (philo->times_eated >= prog->meal_limit)
+			res = 1;
+		else
+			res = 0;
+		pthread_mutex_unlock(&philo->times_eated_mutex);
+		return (res);
+	}
+	else
+		return (0);
 }
 
 static int	is_philo_dead(t_philo *philo)
 {
 	int		time_no_eat;
-	int		res;
 	t_prog	*prog;
 
-	res = 0;
 	prog = philo->prog;
 	pthread_mutex_lock(&philo->last_time_eat_mutex);
 	time_no_eat = get_current_time() - philo->last_time_eat;
 	pthread_mutex_unlock(&philo->last_time_eat_mutex);
 	if (time_no_eat > prog->time_to_die)
-		res = 1;
-	return (res);
+		return (1);
+	else
+		return (0);
 }
 
 static void	set_end_flag(t_philo *philo)
